@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TwoFactorController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SignupController;
 use App\Http\Middleware\Authenticate;
@@ -28,3 +29,8 @@ Route::post('logout', [LoginController::class, 'destroy'])->middleware('auth');
 Route::get('/home', function () {
     return view('home');
 });
+Route::get('/twofactor', function () {
+    return view('twofactor');
+});
+Route::get('verify/resend', [TwoFactorController::class, 'resend'])->name('verify.resend');
+Route::resource('verify', 'App\Http\Controllers\TwoFactorController')->only(['index', 'store']);

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Notifications\TwoFactorCode;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
@@ -17,10 +20,13 @@ class LoginController extends Controller
             'email' => 'required',
             'password' => 'required'
         ]);
-
+        //2fa
+        $user = User::where('email', $attributes['email'])->first();
         if(auth()->attempt($attributes)){
             session()->regenerate(); //da ne mozhe da ima session attack so session fixation
-            return redirect('/home');
+            $user->generateTwoFactorCode();
+            $user->notify(new TwoFactorCode());
+            return redirect('/twofactor');
         }
 
         return back()
