@@ -46,9 +46,11 @@
             left: -35px;
             content: "✕";
         }
+
     </style>
 </head>
-<body class="antialiased opacity-90	">
+<body class="antialiased opacity-90">
+<main class="max-w-lg mx-auto mt-1 bg-gray-100 border border-gray-100 p-6 rounded-xl mt-14">
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card-group">
@@ -61,7 +63,8 @@
                     @endif
                     <form method="POST" action="{{ route('verify.store') }}">
                         {{ csrf_field() }}
-                        <h1>Two Factor Verification</h1>
+                        <h1 class="text-center font-bold text-xl text-indigo-800 font-mono">Two-factor authentication</h1>
+
                         <p class="text-muted">
                             You have received an email which contains two factor login code.
                             If you haven't received it, press <a href="{{ route('verify.resend') }}">here</a>.
@@ -73,26 +76,32 @@
                                     <i class="fa fa-lock"></i>
                                 </span>
                             </div>
-                            <input name="two_factor_code" type="text" class="form-control{{ $errors->has('two_factor_code') ? ' is-invalid' : '' }}" required autofocus placeholder="Two Factor Code">
+                            <input name="two_factor_code" type="text" class="border border-gray-400 p-2 w-full form-control{{ $errors->has('two_factor_code') ? ' is-invalid' : '' }}" required autofocus placeholder="Two Factor Code">
                             @if($errors->has('two_factor_code'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('two_factor_code') }}
                                 </div>
                             @endif
                         </div>
-
                         <div class="row">
-                            <div class="col-6">
-                                <button type="submit" class="btn btn-primary px-4">
-                                    Verify
+                            <div class="col-4">
+                                <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                                    <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                    Submit
+                                    </span>
                                 </button>
                             </div>
-                            <div class="col-6 text-right">
+                            <div class="col-4">
                                 <form method="POST" action="/logout" style="margin-top: 50px; margin-right: 30px">
                                     @csrf
-                                    <button type="submit" class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-gray-200 text-gray-500 hover:border-blue-600 hover:text-blue-600 disabled:opacity-50 disabled:pointer-events-none dark:border-gray-700 dark:text-gray-400 dark:hover:text-blue-500 dark:hover:border-blue-600 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">Logout</button>
-                                </form>
+                                    <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-gray-500 to-gray-500 group-hover:from-gray-500 group-hover:to-gray-100 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-800">
+                                    <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                   Logout
+                                    </span>
+                                    </button>                                </form>
+
                             </div>
+
                         </div>
                     </form>
                 </div>
@@ -100,11 +109,7 @@
         </div>
     </div>
 </div>
-
-<form method="POST" action="/logout" style="margin-top: 50px; margin-right: 30px">
-    @csrf
-    <button type="submit" class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-gray-200 text-gray-500 hover:border-blue-600 hover:text-blue-600 disabled:opacity-50 disabled:pointer-events-none dark:border-gray-700 dark:text-gray-400 dark:hover:text-blue-500 dark:hover:border-blue-600 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">Logout</button>
-</form>
+</main>
 </body>
 
 </html>
