@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RolesController;
 use App\Http\Controllers\TwoFactorController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SignupController;
@@ -26,6 +27,11 @@ Route::post('signup', [SignupController::class, 'store'])->middleware('guest');
 Route::get('login', [LoginController::class, 'index'])->middleware('guest');
 Route::post('login', [LoginController::class, 'store'])->middleware('guest');
 Route::post('logout', [LoginController::class, 'destroy'])->middleware('auth');
+
+Route::get('/role', [RolesController::class, 'index'])->middleware('auth');
+Route::get('/role/edit/{user:id}', [RolesController::class, 'edit'])->middleware('auth');
+
+
 Route::get('/home', function () {
     return view('home');
 });

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->foreignId('role_id')->default('0');
             $table->string('two_factor_code')->nullable()->default('');
             $table->dateTime('two_factor_expires_at')->nullable();
             $table->rememberToken();

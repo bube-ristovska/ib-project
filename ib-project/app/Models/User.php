@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -34,6 +35,7 @@ class User extends Authenticatable
         'password',
         'password_confirmation',
         'remember_token',
+        'role_id',
         'two_factor_code',
         'two_factor_expires_at'
     ];
@@ -54,6 +56,19 @@ class User extends Authenticatable
         $this->two_factor_expires_at = null;
         $this->save();
     }
+
+    public function role()
+    {
+        $result = DB::table('roles')
+            ->select('name')
+            ->where('id', $this->role_id)
+            ->value('name');
+
+        return  ($this->role_id== 0) ? "user" : $result;
+    }
+
+
+
 //
 //    /**
 //     * The attributes that should be cast.
