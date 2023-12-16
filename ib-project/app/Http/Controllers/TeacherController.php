@@ -8,6 +8,11 @@ class TeacherController extends Controller
 {
     public function index()
     {
-        return view('teacher');
+        if(auth()->user()->role()=='teacher'){
+            return view('teacher');
+        } else {
+            return abort(403, 'Permission denied.');
+        }
+
     }
 }

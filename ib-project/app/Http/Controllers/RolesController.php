@@ -10,9 +10,14 @@ class RolesController extends Controller
 {
     public function index()
     {
-        return view('role', [
-            'users' => User::all()
-        ]);
+        if(auth()->user()->role()=='admin'){
+            return view('role', [
+                'users' => User::all()
+            ]);
+        } else {
+            return abort(403, 'Permission denied.');
+        }
+
     }
     public function edit(User $user)
     {

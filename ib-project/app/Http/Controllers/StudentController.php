@@ -8,6 +8,10 @@ class StudentController extends Controller
 {
     public function index()
     {
-        return view('student');
+        if(auth()->user()->role()=='student'){
+            return view('student');
+        } else {
+            return abort(403, 'Permission denied.');
+        }
     }
 }
