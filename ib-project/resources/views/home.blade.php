@@ -54,12 +54,18 @@
                     <div class="flex space-x-4">
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                         <a href="/" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Home</a>
-                        <a href="#" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Courses</a>
-                        <a href="#" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Consultations</a>
-                        <a href="#" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">IKNOW</a>
+                        <a href="https://courses.finki.ukim.mk/" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Courses</a>
+                        <a href="https://courses.finki.ukim.mk/course/view.php?id=1663" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Consultations</a>
+                        <a href="https://www.iknow.ukim.mk/Students/StudentsHome.aspx" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">IKNOW</a>
                         @if(auth()->check())
                             @if(auth()->user()->role()=='admin')
-                                <a href="/role" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Add role to user</a>
+                                <a href="/role" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Adjust roles</a>
+                            @endif
+                            @if(auth()->user()->role()=='student')
+                                    <a href="/student" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">My grades</a>
+                            @endif
+                            @if(auth()->user()->role()=='teacher')
+                                    <a href="/teacher" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Add grades</a>
                             @endif
                         @else
                             <p>User is not authenticated</p>
@@ -89,10 +95,23 @@
     <div class="sm:hidden" id="mobile-menu">
         <div class="space-y-1 px-2 pb-3 pt-2">
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-            <a href="#" class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Dashboard</a>
-            <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Team</a>
-            <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Projects</a>
-            <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Calendar</a>
+            <a href="/" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Home</a>
+            <a href="https://courses.finki.ukim.mk/" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Courses</a>
+            <a href="https://courses.finki.ukim.mk/course/view.php?id=1663" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Consultations</a>
+            <a href="https://www.iknow.ukim.mk/Students/StudentsHome.aspx" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">IKNOW</a>
+            @if(auth()->check())
+                @if(auth()->user()->role()=='admin')
+                    <a href="/role" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Adjust roles</a>
+                @endif
+                @if(auth()->user()->role()=='student')
+                    <a href="/student" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">My grades</a>
+                @endif
+                @if(auth()->user()->role()=='teacher')
+                    <a href="/teacher" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Add grades</a>
+                @endif
+            @else
+                <p>User is not authenticated</p>
+            @endif
         </div>
     </div>
 </nav>

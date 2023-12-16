@@ -15,6 +15,13 @@
             background-position: center;
             background-size: cover;
         }
+        .contain{
+            width: 1000px;
+            margin:auto;
+        }
+        body > div.bgimg.w3-display-container.w3-animate-opacity.w3-text-white > div{
+            width: 1000px;
+        }
     </style>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -53,13 +60,19 @@
                     <div class="hidden sm:ml-6 sm:block">
                         <div class="flex space-x-4">
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                            <a href="/" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Home</a>
-                            <a href="#" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Courses</a>
-                            <a href="#" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Consultations</a>
-                            <a href="#" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">IKNOW</a>
+                            <a href="/" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" >Home</a>
+                            <a href="https://courses.finki.ukim.mk/" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Courses</a>
+                            <a href="https://courses.finki.ukim.mk/course/view.php?id=1663" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Consultations</a>
+                            <a href="https://www.iknow.ukim.mk/Students/StudentsHome.aspx" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">IKNOW</a>
                             @if(auth()->check())
                                 @if(auth()->user()->role()=='admin')
-                                    <a href="/role" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Add role to user</a>
+                                    <a href="/role" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Adjust roles</a>
+                                @endif
+                                @if(auth()->user()->role()=='student')
+                                    <a href="/student" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">My grades</a>
+                                @endif
+                                @if(auth()->user()->role()=='teacher')
+                                    <a href="/teacher" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Add grades</a>
                                 @endif
                             @else
                                 <p>User is not authenticated</p>
@@ -89,10 +102,23 @@
         <div class="sm:hidden" id="mobile-menu">
             <div class="space-y-1 px-2 pb-3 pt-2">
                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                <a href="#" class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Dashboard</a>
-                <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Team</a>
-                <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Projects</a>
-                <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Calendar</a>
+                <a href="/" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">Home</a>
+                <a href="https://courses.finki.ukim.mk/" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Courses</a>
+                <a href="https://courses.finki.ukim.mk/course/view.php?id=1663" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Consultations</a>
+                <a href="https://www.iknow.ukim.mk/Students/StudentsHome.aspx" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">IKNOW</a>
+                @if(auth()->check())
+                    @if(auth()->user()->role()=='admin')
+                        <a href="/role" class="bg-gray-900 text-white" aria-current="page">Adjust roles</a>
+                    @endif
+                    @if(auth()->user()->role()=='student')
+                        <a href="/student" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">My grades</a>
+                    @endif
+                    @if(auth()->user()->role()=='teacher')
+                        <a href="/teacher" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Add grades</a>
+                    @endif
+                @else
+                    <p>User is not authenticated</p>
+                @endif
             </div>
         </div>
     </nav>
@@ -113,12 +139,10 @@
     </div>
 @endif
 <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
-
-<div class="px-6 py-8  mx-auto border border-gray-200 rounded-xl">
+<div class="px-6 py-8  mx-auto">
     <h1 class="text-lg text-indigo-700 font-bold mb-4">
         Manage Users
     </h1>
-
 
     <!-- component -->
     <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
@@ -201,5 +225,6 @@
     </div>
 </div>
 </div>
+
 </body>
 </html>

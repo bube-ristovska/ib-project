@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\RolesController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TwoFactorController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SignupController;
@@ -30,6 +32,7 @@ Route::post('logout', [LoginController::class, 'destroy'])->middleware('auth');
 
 Route::get('/role', [RolesController::class, 'index'])->middleware('auth');
 Route::get('/role/edit/{user:id}', [RolesController::class, 'edit'])->middleware('auth');
+Route::patch('/role/update/{user:id}', [RolesController::class, 'update'])->middleware('auth');
 
 
 Route::get('/home', function () {
@@ -40,3 +43,6 @@ Route::get('/twofactor', function () {
 });
 Route::get('verify/resend', [TwoFactorController::class, 'resend'])->name('verify.resend');
 Route::resource('verify', 'App\Http\Controllers\TwoFactorController')->only(['index', 'store']);
+
+Route::get('/student', [StudentController::class, 'index'])->middleware('auth');
+Route::get('/teacher', [TeacherController::class, 'index'])->middleware('auth');

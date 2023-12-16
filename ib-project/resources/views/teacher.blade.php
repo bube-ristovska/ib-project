@@ -9,24 +9,28 @@
     <style>
         body,h1 {font-family: "Raleway", sans-serif}
         body, html {height: 100%}
-        .contain{
-            width: 1000px;
-            margin:auto;
-        }
         .bgimg {
             background-image: url('https://img.freepik.com/free-vector/gradient-blur-pink-blue-abstract-background_53876-117324.jpg?size=626&ext=jpg&ga=GA1.1.1826414947.1699574400&semt=sph');
             min-height: 100%;
             background-position: center;
             background-size: cover;
         }
-        body{
-            color:black;
+        table {
+            font-family: Arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            color: black;
         }
 
-        body > div.bgimg.w3-display-container.w3-animate-opacity.w3-text-white > div > section > form{
-            margin-top: 100px;
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
         }
 
+        th {
+            background-color: #f2f2f2;
+        }
     </style>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -65,19 +69,19 @@
                     <div class="hidden sm:ml-6 sm:block">
                         <div class="flex space-x-4">
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                            <a href="/" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" >Home</a>
+                            <a href="/"class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" >Home</a>
                             <a href="https://courses.finki.ukim.mk/" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Courses</a>
                             <a href="https://courses.finki.ukim.mk/course/view.php?id=1663" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Consultations</a>
                             <a href="https://www.iknow.ukim.mk/Students/StudentsHome.aspx" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">IKNOW</a>
                             @if(auth()->check())
                                 @if(auth()->user()->role()=='admin')
-                                    <a href="/role" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Adjust roles</a>
+                                    <a href="/role" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Adjust roles</a>
                                 @endif
                                 @if(auth()->user()->role()=='student')
-                                    <a href="/student" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">My grades</a>
+                                    <a href="/student"  class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" >My grades</a>
                                 @endif
                                 @if(auth()->user()->role()=='teacher')
-                                    <a href="/teacher" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Add grades</a>
+                                    <a href="/teacher" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Add grades</a>
                                 @endif
                             @else
                                 <p>User is not authenticated</p>
@@ -107,16 +111,16 @@
         <div class="sm:hidden" id="mobile-menu">
             <div class="space-y-1 px-2 pb-3 pt-2">
                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                <a href="/" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">Home</a>
+                <a href="/"  class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Home</a>
                 <a href="https://courses.finki.ukim.mk/" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Courses</a>
                 <a href="https://courses.finki.ukim.mk/course/view.php?id=1663" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Consultations</a>
                 <a href="https://www.iknow.ukim.mk/Students/StudentsHome.aspx" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">IKNOW</a>
                 @if(auth()->check())
                     @if(auth()->user()->role()=='admin')
-                        <a href="/role" class="bg-gray-900 text-white" aria-current="page">Adjust roles</a>
+                        <a href="/role" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Adjust roles</a>
                     @endif
                     @if(auth()->user()->role()=='student')
-                        <a href="/student" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">My grades</a>
+                        <a href="/student" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">My grades</a>
                     @endif
                     @if(auth()->user()->role()=='teacher')
                         <a href="/teacher" class="text-black-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Add grades</a>
@@ -127,7 +131,6 @@
             </div>
         </div>
     </nav>
-
 
     <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
         @auth
@@ -145,63 +148,124 @@
     </div>
 @endif
 <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
-<div>
-    <section class="px-6 py-8 max-w-md mx-auto">
+    <div class="w3-display-topleft w3-padding-large w3-xlarge">
 
-        <form method="POST" action="/role/update/{{$user->id}}" enctype="multipart/form-data" class="px-6 py-8 border border-gray-200 rounded-xl shadow-md">
-            <h1 class="text-lg text-black  font-bold mb-4">
-                Editing user: {{$user->username}}
-            </h1>
-
-            @csrf
-            @method('PATCH')
-            <div class="mb-6">
-                <label class="block mb-2 uppercase font-bold text-xs text-gray-700"
-                       for="name"
-                >
-                    Name
-                </label>
-
-                <input class="border border-gray-400 p-2 w-full text-black"
-                       type="text"
-                       name="name"
-                       id="name"
-                       value="{{ $user->name }}"
-                       required
-                >
-
-                @error('name')
-                <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <div class="mb-6">
-                <label class="block mb-2 uppercase font-bold text-xs text-gray-700"
-                       for="role_id"
-                >
-                    Select a role
-                </label>
-
-                <select name="role_id" id="role_id" class="block mb-2 uppercase font-bold text-xs text-gray-700">
-                    @foreach(\App\Models\Role::all() as $role)
-                        <option value="{{ $role->id }}">{{ $role->name}}</option>
-                    @endforeach
-                </select>
-
-                @error('role_id')
-                <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
-                @enderror
-            </div>
-
-
-            <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
-                    <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                    Update
-                    </span>
-            </button>
-        </form>
+    </div>
+    <section class="px-40 py-40 mx-auto my-auto">
+        <table style="width: 1000px; margin-left: 300px">
+            <tr>
+                <th>#</th>
+                <th>Kоd</th>
+                <th>Предмет</th>
+                <th>Сесија</th>
+                <th>Датум</th>
+                <th>Семестар</th>
+                <th>Кредити</th>
+                <th>З/И</th>
+                <th>Оценка</th>
+                <th>Акција</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>F18L2S119</td>
+                <td>Концепти на информатичко општество</td>
+                <td>2023 (Летна) Втора испитна сесија</td>
+                <td>16.06.2023</td>
+                <td>0</td>
+                <td>6,00</td>
+                <td>И</td>
+                <td>10</td>
+                <td><button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onclick="editGrade(1)">Измени</button></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>F18L2S017</td>
+                <td>Оперативни системи</td>
+                <td>2023 (Летна) Втора испитна сесија</td>
+                <td>23.06.2023</td>
+                <td>4</td>
+                <td>6,00</td>
+                <td>З</td>
+                <td>10</td>
+                <td><button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onclick="editGrade(20)">Измени</button></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>F18L2S119</td>
+                <td>Концепти на информатичко општество</td>
+                <td>2023 (Летна) Втора испитна сесија</td>
+                <td>16.06.2023</td>
+                <td>0</td>
+                <td>6,00</td>
+                <td>И</td>
+                <td>10</td>
+                <td><button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onclick="editGrade(1)">Измени</button></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>F18L2S017</td>
+                <td>Оперативни системи</td>
+                <td>2023 (Летна) Втора испитна сесија</td>
+                <td>23.06.2023</td>
+                <td>4</td>
+                <td>6,00</td>
+                <td>З</td>
+                <td>10</td>
+                <td><button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onclick="editGrade(20)">Измени</button></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>F18L2S119</td>
+                <td>Концепти на информатичко општество</td>
+                <td>2023 (Летна) Втора испитна сесија</td>
+                <td>16.06.2023</td>
+                <td>0</td>
+                <td>6,00</td>
+                <td>И</td>
+                <td>10</td>
+                <td><button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onclick="editGrade(1)">Измени</button></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>F18L2S119</td>
+                <td>Концепти на информатичко општество</td>
+                <td>2023 (Летна) Втора испитна сесија</td>
+                <td>16.06.2023</td>
+                <td>0</td>
+                <td>6,00</td>
+                <td>И</td>
+                <td>10</td>
+                <td><button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onclick="editGrade(1)">Измени</button></td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>F18L2S017</td>
+                <td>Оперативни системи</td>
+                <td>2023 (Летна) Втора испитна сесија</td>
+                <td>23.06.2023</td>
+                <td>4</td>
+                <td>6,00</td>
+                <td>З</td>
+                <td>10</td>
+                <td><button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onclick="editGrade(20)">Измени</button></td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>F18L2S017</td>
+                <td>Оперативни системи</td>
+                <td>2023 (Летна) Втора испитна сесија</td>
+                <td>23.06.2023</td>
+                <td>4</td>
+                <td>6,00</td>
+                <td>З</td>
+                <td>10</td>
+                <td><button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onclick="editGrade(20)">Измени</button></td>
+            </tr>
+            </tbody>
+        </table>
     </section>
-</div>
 </div>
 </body>
 </html>

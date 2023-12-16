@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class RolesController extends Controller
 {
@@ -15,9 +16,23 @@ class RolesController extends Controller
     }
     public function edit(User $user)
     {
-        // TODO: smeni gi ovde stvarite i odnesi do view za editing
-        echo $user->name;
         return view('edit', ['user' =>$user]);
+    }
+    public function update(User $user)
+    {
+        $attributes = request()->validate([
+            'name' => 'required',
+            'role_id'=> ['required']
+        ]);
+     //   dd(request()->input('role_id'));
+        $user->update($attributes);
+       // $user->role_id = request()->input('role_id');
+        $user->role_id = request()->input('role_id');
+        $user->save();
+
+        return view('role', [
+            'users' => User::all()
+        ]);
     }
     public function destroy(User $user)
     {
